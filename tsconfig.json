@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "inlineSourceMap": true,
+        "outDir": "./app/",
+        "lib": [
+            "es6"
+        ],
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "skipLibCheck": true,         
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}

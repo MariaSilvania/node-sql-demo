@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc",
+    "start": "node app/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^10.12.12",
+    "@types/restify": "^7.2.6",
+    "mssql": "^4.3.0",
     "restify": "^7.3.0",
-    "tedious": "^3.0.1"
+    "restify-cors": "^1.0.1",
+    "restify-cors-middleware": "^1.1.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
   }
 }
