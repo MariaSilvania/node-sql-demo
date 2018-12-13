@@ -1,14 +1,10 @@
-import * as restify from "restify";
-import { Album } from "./album";
-import { Singer } from "./singer";
-import { Song } from "./song";
+const restify = require("restify");
+const album = require("./album");
+const singer = require ("./singer");
+const song = require("./song");
 
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
-
-const singer = new Singer();
-const album = new Album();
-const song = new Song();
 
 server.put("/singer", singer.insertSinger);
 server.get("/singer/:id", singer.getSingers);

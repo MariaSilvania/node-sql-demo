@@ -1,10 +1,8 @@
-import * as sql from "mssql";
-import { SqlConnection } from "./connection";
+const sql = require("mssql");
+const sqlConnection = require("./connection");
 
-export class Song {
-    public async insertSong(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.insertSong = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         const result = await pool.request()
             .input("albumId", sql.Int, req.body.albumId)
@@ -12,14 +10,13 @@ export class Song {
             .input("composer", sql.VarChar(300), req.body.composer)
             .query("INSERT INTO Songs VALUES (@albumId, @name, @composer)");
 
-        await connection.close();
+        await sqlConnection.close();
         res.send(200, { rowsAffected: result.rowsAffected[0] });
         return next();
     }
 
-    public async getSongs(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.getSongs = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         let result;
         if (req.params.id) {
@@ -57,13 +54,12 @@ export class Song {
 
         res.send(result.recordset);
 
-        await connection.close();
+        await sqlConnection.close();
         return next();
     }
 
-    public async getSongsBySinger(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.getSongsBySinger = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         const result = await pool.request()
             .input("id", sql.Int, req.params.id)
@@ -84,13 +80,12 @@ export class Song {
 
         res.send(result.recordset);
 
-        await connection.close();
+        await sqlConnection.close();
         return next();
     }
 
-    public async getSongsByAlbum(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.getSongsByAlbum = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         const result = await pool.request()
         .input("id", sql.Int, req.params.id)
@@ -111,13 +106,12 @@ export class Song {
 
         res.send(result.recordset);
 
-        await connection.close();
+        await sqlConnection.close();
         return next();
     }
 
-    public async updateSong(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.updateSong = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         const result = await pool.request()
             .input("id", sql.Int, req.body.id)
@@ -125,21 +119,19 @@ export class Song {
             .input("composer", sql.VarChar(300), req.body.composer)
             .query("UPDATE Songs SET NAME = @name, COMPOSER = @composer WHERE Id = @id");
 
-        await connection.close();
+        await sqlConnection.close();
         res.send(200, { rowsAffected: result.rowsAffected[0] });
         return next();
     }
 
-    public async deleteSong(req, res, next) {
-        const connection = new SqlConnection();
-        const pool = await connection.open();
+    exports.deleteSong = async function(req, res, next) {
+        const pool = await sqlConnection.open();
 
         const result = await pool.request()
             .input("id", sql.Int, req.params.id)
             .query("DELETE Songs WHERE ID = @id");
 
-        await connection.close();
+        await sqlConnection.close();
         res.send(200, { rowsAffected: result.rowsAffected[0] });
         return next();
     }
-}
