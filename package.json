@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc",
-    "start": "node app/server.js"
+    "start": "npm run compile && node app/server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +15,6 @@
     "@types/restify": "^7.2.6",
     "mssql": "^4.3.0",
     "restify": "^7.3.0",
-    "restify-cors": "^1.0.1",
-    "restify-cors-middleware": "^1.1.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   }
