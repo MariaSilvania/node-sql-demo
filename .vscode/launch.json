@@ -24,8 +24,19 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Exemplo Conexao",
-            "program": "${workspaceFolder}\\src\\.js"
-        }
+            "name": "Launch Program",
+            "smartStep": true,
+            "args": [
+                "${workspaceFolder}/index.ts"
+            ],
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+          }
     ]
 }
