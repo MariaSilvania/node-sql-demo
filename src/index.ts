@@ -28,7 +28,7 @@ const song = new SongController();
 				//
 			},
 			{
-				// 
+				//
 			}
 		]
 	}
