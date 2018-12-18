@@ -10,13 +10,38 @@ const album = new AlbumController();
 const artist = new ArtistController(new ArtistDao());
 const song = new SongController();
 
-server.put("/artist", artist.insertArtist);
-server.get("/artist/:id", artist.getArtists);
-server.post("/artist", artist.updateArtist);
-server.del("/artist/:id", artist.deleteArtist);
+/*
+/artist/id/album/id/number
 
+/artist <- lista de artistas
+/artist/id <- unico artista
+	{
+		title: "Ventania",
+		description: "Doidão",
+		year: Date(1998),
+		genre: "alternative",
+		albums: [
+			{
+				//
+			},
+			{
+				//
+			},
+			{
+				// 
+			}
+		]
+	}
+*/
+server.get("/artist", artist.getArtists);
+server.get("/artist/:artistId", artist.getArtists);
+server.put("/artist/:artistId", artist.insertArtist);
+server.post("/artist/:artistId", artist.updateArtist);
+server.del("/artist/:artistId", artist.deleteArtist);
+
+server.get("/artist/:artistId/album/:albumId", album.getAlbums);
+server.get("/artist/:artistId/album", album.getAlbums);
 server.put("/album", album.insertAlbum);
-server.get("/album/:id", album.getAlbums);
 server.get("/albumByArtist/:artistId", album.getAlbumsByArtist);
 server.post("/album", album.updateAlbum);
 server.del("/album/:id", album.deleteAlbum);

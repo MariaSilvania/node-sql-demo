@@ -2,21 +2,31 @@ import sql from "mssql";
 import { Next, Request, Response } from "restify";
 import * as sqlConnection from "./connection";
 
-export interface IArtist {
-	/** Uniquely identifies the artist on the system. */
-	id?: number;
-	/** The title of the artist */
-	title: string;
-	/** Describes the artist */
-	description: string;
-	/** Year which the artist was formed / began his/her career */
-	year: Date;
-	/** Predominant genre of the artist */
-	genre: string;
-}
+export class Artist {
+	constructor(
+		/** The title of the artist */
+		public title: string,
+		/** Describes the artist */
+		public description: string,
+		/** Year which the artist was formed / began his/her career */
+		public year: Date,
+		/** Predominant genre of the artist */
+		public genre: string,
+		/** Uniquely identifies the artist on the system. */
+		public id?: number,
+	) {
+		if (title == null || title.trim() === "") {
+			throw new Error(`Title '${title}' is invalid.`);
+		}
 
+		if (description == null || description.trim() === "") {
+			throw new Error(`Description '${description}' is invalid.`);
+		}
+	}
+}
+// tslint:disable-next-line:max-classes-per-file
 export class ArtistDao {
-	public async insert(artist: IArtist): Promise<void> {
+	public async insert(artist: Artist): Promise<void> {
 		const pool = await sqlConnection.open();
 
 		try {
@@ -52,8 +62,20 @@ export class ArtistController {
 	constructor(private readonly artistDao: ArtistDao) { }
 
 	public async insertArtist(req: Request, res: Response, next: Next) {
-		await this.artistDao.insert(req.body);
+		const body = req.body;
+
+		let artist: Artist;
+
+		try {
+			artist = new Artist(body.title, body.description, body.year, body.genre);
+		} catch (e) {
+			res.send(400, e);
+			return next();
+		}
+
+		await this.artistDao.insert(artist);
 		res.send(200);
+
 		return next();
 	}
 
