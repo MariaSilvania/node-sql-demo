@@ -1,20 +1,20 @@
-const sql = require("mssql");
+import sql from "mssql";
 
 const config = {
-    database: "Spotify",
-    password: "Avanade@2018",
-    server: "localhost",
-    user: "sa",
+	database: "music",
+	password: "YourStrong!Passw0rd",
+	server: "localhost",
+	user: "sa",
 };
 
-let pool;
+let pool: sql.ConnectionPool;
 
-exports.open = async function () {
-    pool = await new sql.ConnectionPool(config);
-    await pool.connect();
-    return pool;
-}
+export const open = async () => {
+	pool = await new sql.ConnectionPool(config);
+	await pool.connect();
+	return pool;
+};
 
-exports.close = async function () {
-    await pool.close();
-}
+export const close = async () => {
+	await pool.close();
+};

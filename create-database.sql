@@ -3,7 +3,7 @@ GO
 
 USE Spotify;
 
-CREATE TABLE Singers (
+CREATE TABLE Artists (
   Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
   Name NVARCHAR(20),
   Description NVARCHAR(300)
@@ -12,7 +12,7 @@ GO
 
 CREATE TABLE Albums (
   Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  SingerId INT FOREIGN KEY REFERENCES Singers(Id),
+  ArtistId INT FOREIGN KEY REFERENCES Artists(Id),
   Name NVARCHAR(20),
   Year Int
 );
