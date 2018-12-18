@@ -1,13 +1,13 @@
 import restify from "restify";
 import { AlbumController } from "./album";
-import { ArtistController } from "./artist-controller";
+import { ArtistController, ArtistDao } from "./artist-controller";
 import { SongController } from "./song";
 
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
 const album = new AlbumController();
-const artist = new ArtistController();
+const artist = new ArtistController(new ArtistDao());
 const song = new SongController();
 
 server.put("/artist", artist.insertArtist);

@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "npx tslint --project .",
+    "transpile": "tsc", 
+    "build": "npm run lint && npm run transpile",
     "test": "mocha --require ts-node/register ./**/*.spec.ts",
-    "start": "node src/index.js",
-    "lint": "eslint src/*.js"
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
